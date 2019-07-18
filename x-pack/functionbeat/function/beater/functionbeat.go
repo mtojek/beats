@@ -39,7 +39,7 @@ var (
 // - Run on a read only filesystem
 // - More execution constraints based on speed and memory usage.
 type Functionbeat struct {
-	ctx      context.Context
+	Ctx      context.Context
 	log      *logp.Logger
 	cancel   context.CancelFunc
 	Provider provider.Provider
@@ -53,37 +53,20 @@ func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
 		return nil, fmt.Errorf("error reading config file: %+v", err)
 	}
 
-	provider, err := getProvider(c.Provider)
+	provider, err := provider.Get(c.Provider)
 	if err != nil {
 		return nil, err
 	}
 	ctx, cancel := context.WithCancel(context.Background())
 
 	bt := &Functionbeat{
-		ctx:      ctx,
+		Ctx:      ctx,
 		cancel:   cancel,
 		log:      logp.NewLogger("functionbeat"),
 		Provider: provider,
 		Config:   c,
 	}
 	return bt, nil
-}
-
-func getProvider(cfg *common.Config) (provider.Provider, error) {
-	providers, err := provider.List()
-	if err != nil {
-		return nil, err
-	}
-	if len(providers) != 1 {
-		return nil, fmt.Errorf("too many providers are available, expected one, got: %s", providers)
-	}
-
-	providerCfg, err := cfg.Child(providers[0], -1)
-	if err != nil {
-		return nil, err
-	}
-
-	return provider.NewProvider(providers[0], providerCfg)
 }
 
 // Run starts functionbeat.
@@ -117,7 +100,7 @@ func (bt *Functionbeat) Run(b *beat.Beat) error {
 	// When an error reach the coordinator we assume that we cannot recover from it and we initiate
 	// a shutdown and return an aggregated errors.
 	coordinator := core.NewCoordinator(logp.NewLogger("coordinator"), functions...)
-	err = coordinator.Run(bt.ctx)
+	err = coordinator.Run(bt.Ctx)
 	if err != nil {
 		return err
 	}
