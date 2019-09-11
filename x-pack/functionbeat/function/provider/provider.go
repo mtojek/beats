@@ -108,6 +108,7 @@ func ListFunctions(provider string) ([]string, error) {
 	return names, nil
 }
 
+// Get returns the provider from a configuration.
 func Get(cfg *common.Config) (Provider, error) {
 	providers, err := List()
 	if err != nil {

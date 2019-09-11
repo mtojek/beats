@@ -57,6 +57,7 @@ func NewDefaultProvider(
 	}
 }
 
+// ZipResourcer returns the function to retrieve files to be zipped.
 func (d *DefaultProvider) ZipResourcer() ZipResourcesFunc {
 	return d.zipResourcer
 }
