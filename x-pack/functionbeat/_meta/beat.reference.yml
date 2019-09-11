@@ -339,7 +339,7 @@ functionbeat.provider.gcp.functions:
   # Create a function that accepts events coming from Google Cloud Storage.
   - name: storage
     enabled: false
-    type: cloudstorage
+    type: storage
 
     # Description of the method to help identify them when you run multiples functions.
     description: "Google Cloud Function for Cloud Storage"
