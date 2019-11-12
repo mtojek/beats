@@ -24,7 +24,10 @@ type PubSub struct {
 	config *FunctionConfig
 }
 
+// PubSubMsg is an alias to string
 type PubSubMsg string
+
+// PubSubContext is an alias to string
 type PubSubContext string
 
 // NewPubSub returns a new function to read from Google Pub/Sub.

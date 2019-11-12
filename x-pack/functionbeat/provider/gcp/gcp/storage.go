@@ -27,7 +27,10 @@ type Storage struct {
 	config *FunctionConfig
 }
 
+// StorageMsg is an alias to string
 type StorageMsg string
+
+// StorageContext is an alias to string
 type StorageContext string
 
 // NewStorage returns a new function to read from Google Cloud Storage.
@@ -88,7 +91,7 @@ func StorageDetails() *feature.Details {
 
 // Name returns the name of the function.
 func (s *Storage) Name() string {
-	return "cloud_storage"
+	return "storage"
 }
 
 // Config returns the configuration to use when creating the function.
