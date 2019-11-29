@@ -101,7 +101,7 @@ services:
       - "http.host=0.0.0.0"
       - "xpack.security.enabled=false"
     ports:
-      - 9200
+      - 9200:9200
 
   envoyproxy:
     image: docker.elastic.co/observability-ci/beats-integration-envoyproxy:${ENVOYPROXY_VERSION:-v1.7.0}-1
@@ -176,7 +176,7 @@ services:
     depends_on:
       - elasticsearch
     ports:
-      - 5601
+      - 5601:5601
 
   #kubernetes:
   #  build: ./module/kubernetes/_meta

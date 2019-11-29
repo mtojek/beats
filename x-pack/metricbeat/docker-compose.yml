@@ -20,8 +20,10 @@ services:
       args:
         ACTIVEMQ_VERSION: ${ACTIVEMQ_VERSION:-5.15.9}
     ports:
-      - 8161
-      - 61613
+      - 8161:8161
+      - 61613:61613
+    volumes:
+      - ./data:/opt/activemq/data
 
   appsearch:
     build:
